@@ -1,6 +1,7 @@
 """
-Master Pipeline Script
-Runs all scripts in the correct order
+Reports Generation Script
+Runs only the reporting scripts (statistics and aggregations)
+Use this if you've already run the main pipeline
 """
 import os
 import sys
@@ -36,17 +37,12 @@ def run_script(script_name, description):
 def main():
     """Main execution function"""
     print("=" * 80)
-    print("HEALTHCARE FRAUD DETECTION - COMPLETE PIPELINE")
+    print("HEALTHCARE FRAUD DETECTION - REPORTS GENERATION")
     print("=" * 80)
+    print("This script generates statistics and aggregation reports.")
+    print("Make sure Neo4j is running and data is loaded.\n")
     
     scripts = [
-        ("01_data_cleansing.py", "Data Cleansing"),
-        ("02_data_transformation.py", "Data Transformation"),
-        ("03_neo4j_setup.py", "Neo4j Database Setup"),
-        ("04_load_nodes.py", "Node Loading"),
-        ("05_load_relationships.py", "Relationship Loading"),
-        ("07_validation.py", "Data Validation"),
-        ("06_queries.py", "Fraud Detection Queries"),
         ("08_generate_statistics.py", "Generate Statistics Report"),
         ("09_generate_aggregation_results.py", "Generate Aggregation Results"),
     ]
@@ -59,11 +55,11 @@ def main():
             failed_scripts.append((script_name, description))
             response = input(f"\n{description} failed. Continue anyway? (y/N): ")
             if response.lower() != 'y':
-                print("\nPipeline stopped by user.")
+                print("\nReports generation stopped by user.")
                 sys.exit(1)
     
     print("\n" + "=" * 80)
-    print("PIPELINE SUMMARY")
+    print("REPORTS GENERATION SUMMARY")
     print("=" * 80)
     
     if failed_scripts:
@@ -71,7 +67,10 @@ def main():
         for script_name, description in failed_scripts:
             print(f"  - {description} ({script_name})")
     else:
-        print("\n✓ All scripts completed successfully!")
+        print("\n✓ All reports generated successfully!")
+        print("\nGenerated files:")
+        print("  - data/stats/node_relationship_statistics.txt")
+        print("  - outputs/results/aggregation_*.csv")
     
     print("=" * 80)
 

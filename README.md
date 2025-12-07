@@ -158,6 +158,8 @@ scalable-db/
 │   ├── 05_load_relationships.py  # Load relationship data
 │   ├── 06_queries.py             # Execute fraud detection queries
 │   ├── 07_validation.py           # Validate loaded data
+│   ├── 08_generate_statistics.py  # Generate node/relationship statistics
+│   ├── 09_generate_aggregation_results.py  # Generate aggregation results
 │   └── download_data.py          # Kaggle dataset download (optional)
 ├── queries/
 │   └── fraud_patterns.cypher     # Cypher queries for fraud detection
@@ -165,6 +167,13 @@ scalable-db/
 │   ├── results/                  # CSV exports of query results
 │   └── screenshots/              # Query result screenshots
 ├── documentation/                # Project documentation
+│   ├── problem_definition.md     # Section 1: Problem definition
+│   ├── graph_justification.md    # Section 2: Graph DB justification
+│   ├── graph_model_diagrams.md   # Section 3: Graph model diagrams
+│   ├── data_dictionary.md         # Graph model data dictionary
+│   ├── aggregations.md            # Section 6: Aggregation operations
+│   ├── etl_pipeline_flow.md       # Section 5: ETL pipeline description
+│   └── word_document_template.md  # Word document structure template
 ├── docker-compose.yml            # Neo4j and app services
 ├── docker-compose.app.yml        # Optional app service override
 ├── Dockerfile                    # Python application container
