@@ -1,0 +1,54 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+.venv
+
+# Data files (large CSV files - don't copy to image)
+data/raw/*.csv
+data/processed/*.csv
+data/stats/*.txt
+
+# Outputs
+outputs/results/*.csv
+outputs/screenshots/*.png
+outputs/screenshots/*.jpg
+
+# Neo4j data
+neo4j_data/
+neo4j_logs/
+neo4j_import/
+neo4j_plugins/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Git
+.git/
+.gitignore
+
+# Environment
+.env
+.env.local
+
+# Documentation (large files)
+*.pdf
+documentation/*.docx
+documentation/*.doc
+
+# Jupyter
+.ipynb_checkpoints/
+

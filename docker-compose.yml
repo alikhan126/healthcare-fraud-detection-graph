@@ -1,0 +1,69 @@
+services:
+  # Neo4j Database Service
+  neo4j:
+    image: neo4j:5.15
+    container_name: healthcare-fraud-neo4j
+    ports:
+      - "7474:7474"  # HTTP
+      - "7687:7687"  # Bolt
+    environment:
+      - NEO4J_AUTH=${NEO4J_USERNAME}/${NEO4J_PASSWORD}
+      - NEO4J_PLUGINS=["apoc"]
+      - NEO4J_dbms_memory_heap_max__size=2G
+      - NEO4J_dbms_memory_pagecache_size=1G
+      - NEO4J_dbms_security_procedures_unrestricted=apoc.*
+    volumes:
+      - neo4j_data:/data  # Required: Database persistence
+      # Optional volumes (uncomment if needed):
+      # - neo4j_logs:/logs  # For log persistence
+      # - neo4j_import:/var/lib/neo4j/import  # For LOAD CSV (not used in this project)
+      # - neo4j_plugins:/plugins  # For custom plugins
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:7474"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+    networks:
+      - fraud-detection-network
+
+  # Python Application Service (Optional - for running scripts in container)
+  # Uncomment if you want to run scripts in Docker instead of locally
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: healthcare-fraud-app
+    volumes:
+      # Mount data directories for persistence
+      - ./data:/app/data
+      - ./outputs:/app/outputs
+      - ./queries:/app/queries
+      - ./scripts:/app/scripts
+      - ./config:/app/config
+      # Mount .env file
+      - ./.env:/app/.env:ro
+    environment:
+      # Override Neo4j URI to use service name when in Docker network
+      - NEO4J_URI=bolt://neo4j:7687
+    depends_on:
+      neo4j:
+        condition: service_healthy
+    networks:
+      - fraud-detection-network
+    # Default command - override when running
+    # Example: docker-compose run app python scripts/01_data_cleansing.py
+    # The entrypoint.sh will create venv and install dependencies automatically
+    command: python --version
+
+volumes:
+  neo4j_data:  # Required: Database persistence
+  # Optional volumes (uncomment if you enable them above):
+  # neo4j_logs:
+  # neo4j_import:
+  # neo4j_plugins:
+
+networks:
+  fraud-detection-network:
+    driver: bridge
+

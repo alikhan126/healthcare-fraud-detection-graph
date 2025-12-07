@@ -1,0 +1,30 @@
+# Optional: Docker Compose override for running Python scripts in container
+# Usage: docker-compose -f docker-compose.yml -f docker-compose.app.yml up app
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: healthcare-fraud-app
+    volumes:
+      # Mount data directories for persistence
+      - ./data:/app/data
+      - ./outputs:/app/outputs
+      - ./queries:/app/queries
+      - ./scripts:/app/scripts
+      - ./config:/app/config
+      # Mount .env file
+      - ./.env:/app/.env:ro
+    environment:
+      # Override Neo4j URI to use service name when in Docker network
+      - NEO4J_URI=bolt://neo4j:7687
+    depends_on:
+      neo4j:
+        condition: service_healthy
+    networks:
+      - fraud-detection-network
+    # Default command - override when running
+    # Example: docker-compose -f docker-compose.yml -f docker-compose.app.yml run app python scripts/01_data_cleansing.py
+    command: python --version
+
