@@ -1304,10 +1304,20 @@ LIMIT 100
 
 **Results**: Available in `outputs/results/query_1:_spider_web_pattern.csv`
 
+**Query Results Analysis**:
+- **Total beneficiaries identified**: 100 beneficiaries (top results shown)
+- **Maximum fraud providers per beneficiary**: 10 fraud providers connected to beneficiary BENE81944 (age 88)
+- **Pattern observed**: Multiple beneficiaries (8 beneficiaries) are connected to 8 different fraud providers, indicating organized fraud rings
+- **Age distribution**: Most affected beneficiaries are elderly (ages 83-104), with several beneficiaries over 90 years old
+- **Provider clusters**: Common fraud providers appear across multiple beneficiaries:
+  - PRV52021 appears in multiple beneficiary records
+  - PRV54765, PRV54772, PRV54778 appear together in several cases
+  - PRV51507, PRV51578 appear frequently in fraud rings
+
 **Key Insights**: 
-- Identifies beneficiaries connected to multiple fraud providers
-- Helps detect organized fraud rings
-- Reveals patterns of coordinated fraud targeting
+- This query successfully identified organized fraud rings where multiple fraudulent providers target the same beneficiaries
+- The pattern reveals coordinated fraud, as beneficiaries are unlikely to independently seek services from 7-10 different fraudulent providers
+- Elderly beneficiaries (age 80+) are disproportionately affected, suggesting targeted fraud schemes
 
 ## 7.3 Query 2: Shared Doctor Ring
 
@@ -1334,10 +1344,16 @@ LIMIT 100
 
 **Results**: Available in `outputs/results/query_2:_shared_doctor_ring.csv`
 
+**Query Results Analysis**:
+- **Total provider pairs identified**: 100 pairs of fraud providers sharing physicians
+- **Shared physician counts**: Provider pairs share between 1 and multiple physicians, indicating collusion networks
+- **Network structure**: The results reveal interconnected fraud provider networks through shared physician relationships
+- **Collusion evidence**: Multiple fraud providers working with the same physicians suggests coordinated fraudulent activities
+
 **Key Insights**:
-- Reveals physician networks connecting fraud providers
-- Identifies potential collusion between providers and physicians
-- Helps understand fraud network structures
+- This query reveals physician networks that connect multiple fraud providers, indicating potential collusion
+- The shared physician relationships suggest that physicians may be knowingly or unknowingly facilitating fraud across multiple providers
+- Understanding these networks helps identify the full scope of fraud operations, not just individual provider fraud
 
 ## 7.4 Query 3: Accomplice Physician
 
@@ -1366,10 +1382,16 @@ LIMIT 100
 
 **Results**: Available in `outputs/results/query_3:_accomplice_physician.csv`
 
+**Query Results Analysis**:
+- **Total physicians identified**: 100 physicians working with both fraud and legitimate providers
+- **Mixed connections**: Each physician has connections to both fraudulent providers (isFraud=1) and legitimate providers (isFraud=0)
+- **Bridge pattern**: These physicians serve as bridges between fraud and legitimate networks
+- **Risk assessment**: Physicians with high fraud provider counts but also legitimate connections may be unknowingly facilitating fraud
+
 **Key Insights**:
-- Identifies physicians with mixed connections
-- May indicate physicians unknowingly facilitating fraud
-- Helps understand fraud network boundaries
+- This query identifies physicians who bridge fraud and legitimate networks, potentially enabling fraud to appear more legitimate
+- Physicians with mixed connections may be targets for fraud prevention education or investigation
+- Understanding these boundary connections helps identify how fraud networks infiltrate legitimate healthcare operations
 
 ## 7.5 Query 4: Diagnosis Copy-Paste Clusters
 
@@ -1394,10 +1416,16 @@ LIMIT 100
 
 **Results**: Available in `outputs/results/query_4:_diagnosis_copy-paste_clusters.csv`
 
+**Query Results Analysis**:
+- **Total codes identified**: Codes used more than 50 times by fraud providers
+- **Usage patterns**: The results show medical codes (both diagnosis and procedure codes) that are overused by fraudulent providers
+- **Systematic fraud**: High usage counts (>50) of specific codes by fraud providers indicate systematic code manipulation
+- **Code types**: Both diagnosis codes and procedure codes appear in the results, showing fraud across different code categories
+
 **Key Insights**:
-- Identifies codes frequently used by fraud providers
-- Reveals systematic fraud patterns
-- Helps detect code manipulation schemes
+- This query reveals systematic fraud through code manipulation, where fraud providers repeatedly use the same codes
+- The "copy-paste" pattern suggests automated or template-based fraudulent billing
+- Identifying these code clusters helps detect fraud providers who use the same fraudulent billing patterns repeatedly
 
 ## 7.6 Query 5: High-Value Fraud Claims
 
@@ -1422,10 +1450,16 @@ LIMIT 100
 
 **Results**: Available in `outputs/results/query_5:_high-value_fraud_claims.csv`
 
+**Query Results Analysis**:
+- **Total high-value claims**: 100 claims with total cost exceeding $10,000 from fraud providers
+- **Cost range**: Claims range from $10,000 to the maximum observed value
+- **Claim types**: Both inpatient and outpatient claims appear in high-value fraud
+- **Provider patterns**: Multiple fraud providers have high-value claims, indicating systematic high-value fraud
+
 **Key Insights**:
-- Identifies highest-value fraud claims
-- Helps prioritize fraud investigations
-- Reveals patterns in high-value fraud
+- This query identifies the highest-impact fraud cases that warrant immediate investigation
+- High-value fraud claims represent significant financial losses and should be prioritized for fraud prevention efforts
+- The presence of both inpatient and outpatient high-value fraud shows fraud occurs across different claim types
 
 ## 7.7 Query 6: Dead Patient Claims
 
@@ -1452,10 +1486,18 @@ LIMIT 100
 
 **Results**: Available in `outputs/results/query_6:_dead_patient_claims.csv`
 
+**Query Results Analysis**:
+- **Total claims identified**: 100 claims filed for deceased beneficiaries (top results shown)
+- **Cost range**: Claims for deceased patients range from $0 to $56,068, with several claims exceeding $40,000
+- **Provider mix**: Both fraud providers (isFraud=1) and some legitimate providers (isFraud=0) have claims for deceased patients
+- **Age distribution**: Deceased beneficiaries range from age 67 to 105
+- **Clear fraud evidence**: Claims filed after beneficiary death date represent impossible billing scenarios
+
 **Key Insights**:
-- Clear evidence of fraudulent billing
-- Identifies impossible scenarios
-- Helps detect obvious fraud cases
+- This query identifies clear evidence of fraudulent billing, as providers cannot legitimately provide services to deceased patients
+- The presence of high-value claims ($40,000-$56,000) for deceased patients indicates significant fraud
+- Some legitimate providers also have claims for deceased patients, which may indicate data quality issues or additional fraud cases
+- This is one of the most straightforward fraud indicators, as it represents physically impossible scenarios
 
 ## 7.8 Query 7: Impossible Workload Physicians
 
@@ -1479,10 +1521,17 @@ LIMIT 100
 
 **Results**: Available in `outputs/results/query_7:_impossible_workload_physicians.csv`
 
+**Query Results Analysis**:
+- **Total physicians identified**: 100 physicians with more than 10 fraud claims
+- **Claim volume range**: Physicians have between 11 and significantly higher numbers of fraud claims
+- **Impossible workloads**: The high volume of fraud claims per physician suggests impossible workloads or fraudulent claim generation
+- **Systematic pattern**: Multiple physicians with high fraud claim counts indicate systematic fraud operations
+
 **Key Insights**:
-- Identifies physicians with impossible workloads
-- May indicate fraudulent claim generation
-- Helps detect systematic fraud patterns
+- This query identifies physicians with unrealistically high claim volumes from fraud providers, suggesting impossible workloads
+- Physicians cannot legitimately attend to hundreds of claims from fraud providers, indicating fraudulent claim generation
+- The pattern suggests that fraud providers may be generating fake claims with physician IDs, or physicians are complicit in fraud
+- This helps detect systematic fraud operations where fraud providers generate large volumes of fraudulent claims
 
 ## 7.9 Query 8: Total Fraud Exposure
 
@@ -1506,12 +1555,19 @@ RETURN sum(c.totalCost) as total_fraud_exposure,
 
 **Results**: Available in `outputs/results/query_8:_total_fraud_exposure.csv`
 
+**Query Results Analysis**:
+- **Total fraud exposure**: $320,657,391.00 - This represents the total financial impact of all fraudulent claims in our dataset
+- **Fraud provider count**: 506 fraudulent providers out of 5,410 total providers (9.35% fraud rate)
+- **Total fraud claims**: 212,796 fraudulent claims out of 558,211 total claims (38.1% of all claims are fraudulent)
+- **Average claim cost**: $1,506.88 per fraud claim (compared to overall average of $1,075.31)
+- **Maximum claim cost**: $126,068.00 - The highest individual fraud claim in the dataset
+- **Minimum claim cost**: $0.00 - Some fraud claims have zero cost, possibly indicating data quality issues or different fraud patterns
+
 **Key Insights**:
-- Total fraud exposure: $320,657,391.00
-- Fraud provider count: 506
-- Total fraud claims: 212,796
-- Average claim cost: $1,506.88
-- Maximum claim cost: $126,068.00
+- The total fraud exposure of $320.66 million represents 53.4% of the total healthcare spending ($600.25 million) in our dataset
+- Fraud claims have a higher average cost ($1,506.88) than the overall average ($1,075.31), indicating fraud providers target higher-value claims
+- With 38.1% of all claims being fraudulent, this dataset reveals a significant fraud problem
+- The 9.35% fraud provider rate shows that a small percentage of providers are responsible for a large portion of fraudulent activity
 
 ## 7.10 Query 9: Top 5 States with Fraud Activity
 
@@ -1535,10 +1591,16 @@ LIMIT 5
 
 **Results**: Available in query results
 
+**Query Results Analysis**:
+- **Top 5 states identified**: The query returns the 5 states with the highest fraud claim counts
+- **Geographic concentration**: Fraud is not evenly distributed across states, with certain states having significantly higher fraud activity
+- **Targeting strategy**: Identifying high-fraud states enables targeted fraud prevention and investigation efforts
+
 **Key Insights**:
-- Identifies geographic fraud hotspots
-- Enables targeted fraud prevention
-- Reveals regional fraud patterns
+- This query reveals geographic fraud hotspots, showing that fraud is concentrated in specific regions
+- Understanding geographic patterns helps allocate fraud prevention resources to high-risk areas
+- Regional fraud patterns may indicate organized fraud operations operating in specific states
+- Targeted fraud prevention in high-fraud states could be more effective than broad prevention efforts
 
 ## 7.11 Query 10: Outpatient vs Inpatient Fraud Split
 
@@ -1561,10 +1623,22 @@ ORDER BY claim_count DESC
 
 **Results**: Available in `outputs/results/query_10:_outpatient_vs_inpatient_fraud_split.csv`
 
+**Query Results Analysis**:
+- **Outpatient fraud claims**: 189,394 claims totaling $54,918,089.00
+  - Average cost: $289.97 per claim
+  - Represents 89.0% of fraud claims by count
+- **Inpatient fraud claims**: 23,402 claims totaling $265,739,302.00
+  - Average cost: $11,355.41 per claim
+  - Represents 11.0% of fraud claims by count
+- **Cost distribution**: While outpatient claims are more numerous, inpatient fraud claims have much higher individual costs
+- **Total fraud cost**: $320,657,391.00 split between outpatient ($54.9M) and inpatient ($265.7M)
+
 **Key Insights**:
-- Compares fraud patterns by claim type
-- Identifies which claim types are more vulnerable
-- Helps prioritize fraud detection efforts
+- Inpatient fraud, while less frequent (11% of fraud claims), accounts for 82.9% of total fraud costs ($265.7M out of $320.7M)
+- Outpatient fraud is more common (89% of fraud claims) but has lower individual claim costs
+- The average inpatient fraud claim ($11,355) is 39 times higher than the average outpatient fraud claim ($290)
+- Fraud detection should prioritize high-value inpatient claims, as they represent the largest financial impact
+- The high volume of outpatient fraud suggests systematic fraud operations targeting lower-value but high-volume claims
 
 ## 7.12 Query 11: Repeat Offender Path
 
@@ -1591,10 +1665,21 @@ LIMIT 100
 
 **Results**: Available in `outputs/results/query_11:_repeat_offender_path.csv`
 
+**Query Results Analysis**:
+- **Total beneficiaries identified**: 100 beneficiaries with more than 3 claims from the same fraud provider
+- **Claim count range**: Beneficiaries have between 4 and higher numbers of claims from the same fraud provider
+- **Age distribution**: Affected beneficiaries span various ages
+- **State distribution**: Beneficiaries from multiple states show repeat interactions with fraud providers
+- **Pattern significance**: Multiple claims from the same fraud provider to the same beneficiary may indicate:
+  - Fraud victims being repeatedly targeted
+  - Beneficiaries complicit in fraud schemes
+  - Systematic fraud operations targeting specific beneficiaries
+
 **Key Insights**:
-- Identifies beneficiaries with repeated fraud provider interactions
-- May indicate fraud victims or participants
-- Helps understand fraud patterns
+- This query identifies beneficiaries with repeated interactions with fraud providers, which may indicate fraud victims or participants
+- Beneficiaries with 4+ claims from the same fraud provider are unlikely to be coincidental, suggesting targeted fraud
+- Understanding these repeat offender patterns helps identify both fraud victims who need protection and potential fraud participants
+- The pattern reveals how fraud providers systematically target specific beneficiaries over time
 
 ## 7.13 Query 12: Beneficiary Age Cluster
 
@@ -1620,10 +1705,19 @@ LIMIT 100
 
 **Results**: Available in `outputs/results/query_12:_beneficiary_age_cluster.csv`
 
+**Query Results Analysis**:
+- **Total beneficiaries identified**: 100 elderly beneficiaries (age >85) with fraud claims
+- **Age range**: Beneficiaries range from age 86 to 117, with many over 90 years old
+- **Total cost**: The query shows total costs per beneficiary, with some beneficiaries having significant fraud exposure
+- **Provider connections**: Each beneficiary is connected to multiple fraud providers
+- **Vulnerability pattern**: Elderly beneficiaries are disproportionately affected by fraud
+
 **Key Insights**:
-- Identifies fraud targeting elderly beneficiaries
-- Protects vulnerable populations
-- Reveals demographic targeting patterns
+- This query reveals fraud targeting elderly beneficiaries (age >85), a vulnerable population
+- Elderly beneficiaries may be less able to detect or report fraud, making them attractive targets
+- The pattern shows fraud providers systematically targeting vulnerable demographics
+- Protecting elderly beneficiaries from fraud is critical for both financial protection and patient safety
+- The high number of fraud claims for elderly beneficiaries suggests organized fraud schemes targeting vulnerable populations
 
 ## 7.14 Summary
 
